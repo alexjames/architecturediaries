@@ -1,0 +1,22 @@
+---
+layout: default
+title: Home
+---
+
+
+<div id="home">
+
+  <p> What is this?
+  </p>
+
+  <h1>Life Skills</h1>
+  <ul class="pages">
+    {% for page in site.pages %}
+      {% if page.categories == "lifeskills" %}
+      {{ title }}
+        <li><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  </div>
