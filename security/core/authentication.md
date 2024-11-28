@@ -12,11 +12,11 @@ Passwords, cryptographic tokens, and biometrics are some of the common ways of a
 ## Factors in Authentication
 Factors in authentication are primary factors that authentication can be based on.
 
-- Something you know i.e “here is something only you could have known, so it must by you”
+- Something you know i.e. “here is something only you could have known, so it must by you”
   * Password (memorized phrase)
   * PIN (numerical code)
   * Security Questions (“what’s your first pet’s name?”, “where did you go to school?”)
-- Something you have i.e “here is something only you could possess, so it must by you”
+- Something you have i.e. “here is something only you could possess, so it must by you”
   * Mobile phone (automated phone call, SMS, authentication apps)
   * Smart card
   * Hardware Tokens
@@ -33,7 +33,7 @@ Factors in authentication are primary factors that authentication can be based o
   * Geolocation
   * IP based
 
-> Multi-factor Authentication: Using more than one factor for authentication
+> Multi-factor Authentication: Using more than one factor for authentication, usually 2FA or 3FA
 > 
 > 2FA (Two factor authentication): Using two factors for authentication
 > 
