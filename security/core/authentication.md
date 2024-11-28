@@ -10,7 +10,7 @@ Authentication is the process by which a user or application identifies itself t
 Passwords, cryptographic tokens, and biometrics are some of the common ways of authentication.
 
 ## Factors in Authentication
-Factors are
+Factors in authentication are primary factors that authentication can be based on.
 
 - Something you know i.e “here is something only you could have known, so it must by you”
   * Password (memorized phrase)
@@ -32,5 +32,12 @@ Factors are
 - Somewhere you are
   * Geolocation
   * IP based
+
+> Multi-factor Authentication: Using more than one factor for authentication
+> 
+> 2FA (Two factor authentication): Using two factors for authentication
+> 
+> 3FA (Three factor authentication): Using two factors for authentication
+
 
 
