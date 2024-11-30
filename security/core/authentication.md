@@ -44,9 +44,9 @@ Factors in authentication are means to provide authentication to a system. They 
 Since HTTP is a stateless protocol, web servers need a way to avoid having to re-authenticate a user everytime they make a request. Authentication to servers can be session-based or token-based.
 
 ### Session-based Authentication
-The server creates a “session” associated with a user and stores it in its database. This typically involves creating a unique sessionID string which is sent back to the HTTP client on successful authentication. This is attached as a header in every subsequent client request so the server can identify the requestor.
+The server creates a “session” associated with a user and stores it in its database. A unique `sessionID` string corresponding to the session is sent back to the HTTP client on successful authentication. The `sessionID` attached as a header in every subsequent client request so the server can identify the requestor.
 
-Session-based auth is usually done using HTTP Cookies, but can also be done through form fields and URLs. Scalability is a major downside with this method, since sessions need to be replicated and synchronized across multiple servers using something like a shared database, adding complexity. It is also not an ideal scheme for authenticating APIs since those endpoints are designed for independent requests and don’t maintain sessions.
+Session-based auth is usually done using HTTP Cookies, but can also be done through form fields and URLs. Scalability is a major downside with this method, since sessions need to be replicated and synchronized across multiple servers using something like a shared database, which adds complexity. It is also not an ideal scheme for authenticating APIs since those endpoints are designed for independent requests and don’t maintain sessions.
 
 ### Token-based Authentication
 After authentication, the server creates a token (cryptographically signed with some “claims”) and sends it back to the client. The client attaches these tokens in their header while making subsequent requests. The server verifies the token’s signature and associated claims to authenticate the user.
