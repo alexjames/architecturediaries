@@ -11,24 +11,39 @@ Passwords, cryptographic tokens, and biometrics are some of the common ways of a
 ## Factors in Authentication
 Factors in authentication are means to provide authentication to a system. They are broadly categorized as follows -
 
-- Something you know i.e. “here is something only you could have known, so it must by you”
+- Knowledge Based
+
+  Something you know i.e. “here is something only you could have known, so it must by you”
   * Password (memorized phrase)
   * PIN (numerical code)
   * Security Questions (“what’s your first pet’s name?”, “where did you go to school?”)
-- Something you have i.e. “here is something only you could possess, so it must by you”
+
+- Possession Based
+
+  Something you have i.e. “here is something only you could possess, so it must by you”
   * Mobile phone (automated phone call, SMS, authentication apps)
   * Smart card
   * Hardware Tokens
   * Magic Link (URL with embedded tokens)
-- Something you are (with biometrics, accuracy and privacy can be a problem)
+
+
+- Inherence Based
+
+  Something you are (with biometrics, accuracy and privacy can be a problem)
   * Fingerprint
   * Facial recognition
   * Retinal/Iris Scan
-- Something you do i.e. “this is something you do that is unique to you”
+
+- Behavioral
+
+  Something you do i.e. “this is something you do that is unique to you”
   * Voice recognition
   * Handwriting/signature recognition
   * Typing patterns/speed
-- Somewhere you are
+
+- Location Based
+  
+  Somewhere you are
   * Geolocation
   * IP based
 
