@@ -73,9 +73,11 @@ After authentication, the server creates a token (cryptographically signed with 
 
 Tokens allow the server to avoid storing state associated with a user’s authentication. This allows a token to be passed to a different web server (or web application) without needing re-authentication. The tokens can store information about the user and session. They usually contain an expiry time and a web server will not accept any token that has passed this time.
 
+JWT (JSON Web Token) are a popular format for cryptographic tokens.
+
 ### Comparing the two
-The network roundtrip time to pull session information from a database for session-based auth is likely significantly more expensive than HMAC signature verification needed for cookie-based implementation. With tokens, token generation can be decoupled from token verification, allowing the use a separate server doing generation. With the use of sessionids, this isn’t as easy to do.
-Ultimately, both session and token based auth rely on giving some bytes of data that prove you are who you say you are. JWTs are a popular format for cryptographic tokens.
+The network round-trip time to pull session information from a database for session-based auth is likely more expensive than HMAC signature verification needed for a token-based implementation. With tokens, token generation can be decoupled from token verification, allowing the use a separate servers for each. With the use of sessionids, this isn’t as easy to do.
+Ultimately, both session and token based auth rely on giving some bytes of data that prove you are who you say you are. 
 
 Session based auth is commonly done with cookies, making it more targeted towards web browsers. Applications outside the browser, mobile applications and IOT devices work better with tokens since they can more easily attach them to HTTP request headers and don’t have to implement cookie management.
 
