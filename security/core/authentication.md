@@ -77,9 +77,10 @@ JWT (JSON Web Token) are a popular format for cryptographic tokens.
 
 ### Comparing the two
 The network round-trip time to pull session information from a database for session-based auth is likely more expensive than HMAC signature verification needed for a token-based implementation. With tokens, token generation can be decoupled from token verification, allowing the use a separate servers for each. With the use of sessionids, this isn’t as easy to do.
-Ultimately, both session and token based auth rely on giving some bytes of data that prove you are who you say you are. 
 
-Session based auth is commonly done with cookies, making it more targeted towards web browsers. Applications outside the browser, mobile applications and IOT devices work better with tokens since they can more easily attach them to HTTP request headers and don’t have to implement cookie management.
+Ultimately, both session and token based auth rely on giving some bytes of data that prove the identity of the client. 
+
+Session based auth is commonly done with cookies, making it more targeted towards web browsers. Applications outside the browser, mobile applications and IOT devices work better with tokens since they can more easily attach them to HTTP request headers and don’t have to implement cookie management. Some webapps may combine both session and token based authentication.
 
 ## Password Storage
 Web applications store passwords in their database. This can be done in a couple of ways.
