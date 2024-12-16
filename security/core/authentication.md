@@ -95,7 +95,7 @@ Ultimately, both session and token based auth rely on the client presenting some
 
 HTTP Basic auth is widely supported by web browsers and server frameworks.
 
-1. When a server uses HTTP Basic auth, it responds back to an HTTP request to a protected resource with a `401` response status and the `WWW-Authenticate` header.
+1. When a server uses HTTP Basic auth, it responds back to an HTTP request to a protected resource with a `401 Unauthorized` response status and the `WWW-Authenticate` header.
 
 2. The client sees the `WWW-Authenticate` header and value **"Basic”**, indicating the auth scheme.
 
@@ -103,11 +103,15 @@ HTTP Basic auth is widely supported by web browsers and server frameworks.
 
 4. The client takes the username and password and Base64 encodes it. It then makes the same request with the `Authorization` header and the encoded credentials.
 
+5. The server checks its database to verify the username and password match. It sends back a `200` response if they match. Otherwise it repeats the `401`.
+
 Base64 encoding is not a form of encryption and hence Basic Auth should only be used over a secure channel such as HTTPS/TLS.
 
 ### #2 API Key Auth
 
-Authorization is done using of a API Key known only to the client and server. The client performs a one-time registration with the server and receives a unique API key. The key is attached to every request made to the server.
+Authorization is done using of a API Key known only to the client and server. The client performs a one-time registration with the server and receives a unique API key.
+
+The key is attached to every request made to the server. The server will check its database to determine which client the key belongs to.
 
 The key can be used in the request in the following ways -
 
@@ -118,6 +122,18 @@ The key can be used in the request in the following ways -
  * POST request body
 
 This is in essense just a variation of HTTP Basic auth. Having the same drawbacks as basic auth, the recommendation is to use this over a secure channel.
+
+### #3 JWT Authentication
+
+JSON Web Tokens (pronounced "jot") are a way of encoding claims into a JSON object for transmitting information between parties. Claims are statements made by one subject about itself or other subjects.
+
+The standard format of a JWT is `<HEADER>.<PAYLOAD>.<SIGNATURE>`
+
+![Pic-4](images/jwt.png)
+
+Claims specify what a subject is or isn't (authentication information). They don't specify what a subject can or cannot do (authorization information).
+
+Tokens may be signed using HMAC and a secret or using RSA keys.
 
 ## Password Storage
 We discuss several ways for web applications to store passwords in their database.
