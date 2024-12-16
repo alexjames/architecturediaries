@@ -85,7 +85,7 @@ The network round-trip time to pull session information from a database for sess
 
 Session based auth is commonly done with cookies, making it more targeted towards web browsers. Applications outside the browser, mobile applications and IOT devices work better with tokens since they can more easily attach them to HTTP request headers and don’t have to implement cookie management. Some webapps may combine both session and token based authentication.
 
-Ultimately, both session and token based auth rely on the client presenting some bytes of data to the web server that prove its identity.
+Ultimately, both session and token based auth rely on the client presenting some bytes of data to the web server that prove its identity. Both schemes are equally susceptible to compromise when conducted over unencrypted channels.
 
 
 ## Case Studies
@@ -131,9 +131,13 @@ The standard format of a JWT is `<HEADER>.<PAYLOAD>.<SIGNATURE>`
 
 ![Pic-4](images/jwt.png)
 
+After verifying a client's credentials, the server sends back to the client a JWT token that embeds claims pertinent to the client. The client attaches the token to every request via the `Authorization` header. The server validates that the JWT's signature, ensures the expiration time hasn't passed and grants or denies access based on the token's claims.
+
 Claims specify what a subject is or isn't (authentication information). They don't specify what a subject can or cannot do (authorization information).
 
-Tokens may be signed using HMAC and a secret or using RSA keys.
+Tokens are commonly signed using HMAC with a server secret or using RSA keys.
+
+Being a standard token-based authentication method, JWT auth is stateless, light-weight and can be used across several web applications. They usually have short expiration times and are sent over a secure channel. 
 
 ## Password Storage
 We discuss several ways for web applications to store passwords in their database.
