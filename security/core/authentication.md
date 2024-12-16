@@ -9,7 +9,7 @@ categories: security
 Passwords, cryptographic tokens, and biometrics are some of the common ways of authentication. Approaches to authenticating human users can look different from those authenticating machines (devices or applications).
 
 ## Factors in Authentication
-Factors in authentication are means to provide authentication to a system. They are broadly categorized as follows -
+Factors in authentication are means to prove your identity to a system. They are broadly categorized as follows -
 
 - Knowledge Based
 
@@ -52,18 +52,18 @@ Factors in authentication are means to provide authentication to a system. They 
 > 
 > 2FA (Two factor authentication): Using two factors for authentication
 > 
-> 3FA (Three factor authentication): Using two factors for authentication
+> 3FA (Three factor authentication): Using three factors for authentication
 >
 > Passwordless: Using factor(s) other than "something you know"
 
 ## Authentication Methods For The Web
-There are two common designs for authentication systems - they can be session-based or token-based. Each defines a way to connect and establish an authenticated connection with the web server. Since HTTP is a stateless protocol, servers need a way to avoid having to re-authenticate a user everytime they make a request.
+There are two common designs for web-based authentication systems - they can be session-based or token-based. Each defines a way to connect and establish an authenticated connection with the web server. Since HTTP is a stateless protocol, servers need a way to avoid having a user prove their identity everytime they make a request.
 
 ### Session-based Authentication
 
 ![Pic-1](../images/session.png)
 
-The server creates a “session” associated with a user and stores it in its database. A unique `sessionID` string corresponding to the session is sent back to the HTTP client on successful authentication. The `sessionID` is attached as a header in every subsequent client request so the server can identify the requestor.
+The server creates a “session” associated with a user and stores it in its database. A unique `sessionID` string corresponding to the session is sent back to the HTTP client on successfully validating its credentials. The `sessionID` is attached as a header in every subsequent client request so the server can identify the requestor.
 
 Session-based auth is usually done using HTTP Cookies, but can also be done through HTTP form fields and URLs. 
 
@@ -74,7 +74,7 @@ If the web application consists of several web servers behind a load balancer, s
 
 ![Pic-2](../images/token.png)
 
-After authentication, the server creates a cryptographically signed token with some “claims” and sends it back to the client. The client attaches these tokens in their header while making subsequent requests. The server verifies the token’s signature and associated claims to authenticate the user.
+After verifying credentials, the server creates a cryptographically signed token and sends it back to the client. The client attaches these tokens in their header while making subsequent requests. The server verifies the token’s signature (and optionally the contents of the token) to authenticate the user.
 
 Unlike sessions, tokens contain sufficient information to authenticate a user and eliminate the need for the server to store the user’s authentication information. This allows a token to be passed to a different web server (or web application) without needing re-authentication. The tokens can store information about the user and session. They usually contain an expiry time and a web server will not accept any token that has passed this time.
 
@@ -86,7 +86,6 @@ The network round-trip time to pull session information from a database for sess
 Session based auth is commonly done with cookies, making it more targeted towards web browsers. Applications outside the browser, mobile applications and IOT devices work better with tokens since they can more easily attach them to HTTP request headers and don’t have to implement cookie management. Some webapps may combine both session and token based authentication.
 
 Ultimately, both session and token based auth rely on the client presenting some bytes of data to the web server that prove its identity. Both schemes are equally susceptible to compromise when conducted over unencrypted channels.
-
 
 ## Case Studies
 ### #1 HTTP Basic Auth
