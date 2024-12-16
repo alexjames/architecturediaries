@@ -61,7 +61,7 @@ There are two common designs for authentication systems - they can be session-ba
 
 ### Session-based Authentication
 
-![Pic-1](images/session.png)
+![Pic-1](../images/session.png)
 
 The server creates a “session” associated with a user and stores it in its database. A unique `sessionID` string corresponding to the session is sent back to the HTTP client on successful authentication. The `sessionID` is attached as a header in every subsequent client request so the server can identify the requestor.
 
@@ -72,7 +72,7 @@ If the web application consists of several web servers behind a load balancer, s
 
 ### Token-based Authentication
 
-![Pic-2](images/token.png)
+![Pic-2](../images/token.png)
 
 After authentication, the server creates a cryptographically signed token with some “claims” and sends it back to the client. The client attaches these tokens in their header while making subsequent requests. The server verifies the token’s signature and associated claims to authenticate the user.
 
@@ -91,7 +91,7 @@ Ultimately, both session and token based auth rely on the client presenting some
 ## Case Studies
 ### #1 HTTP Basic Auth
 
-![Pic-3](images/basic-auth.png)
+![Pic-3](../images/basic-auth.png)
 
 HTTP Basic auth is widely supported by web browsers and server frameworks.
 
@@ -129,7 +129,7 @@ JSON Web Tokens (pronounced "jot") are a way of encoding claims into a JSON obje
 
 The standard format of a JWT is `<HEADER>.<PAYLOAD>.<SIGNATURE>`
 
-![Pic-4](images/jwt.png)
+![Pic-4](../images/jwt.png)
 
 After verifying a client's credentials, the server sends back to the client a JWT token that embeds claims pertinent to the client. The client attaches the token to every request via the `Authorization` header. The server validates that the JWT's signature, ensures the expiration time hasn't passed and grants or denies access based on the token's claims.
 
