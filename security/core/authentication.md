@@ -4,9 +4,9 @@ title: Authentication
 categories: security
 ---
 ## Definition
-Authentication is the process by which a user or application identifies itself to another application or system. Authorization is the validation that they are allowed to perform an action on a resource within the system.
+**Authentication** is the process by which a user or application identifies itself to another application or system. **Authorization** is the validation that they are allowed to perform an action on a resource within the system.
  
-Passwords, cryptographic tokens, and biometrics are some of the common ways of authentication. Authentication schemes authenticating human users can differ from those authenticating machines (devices or applications).
+Passwords, cryptographic tokens, and biometrics are some of the common ways of authentication. Approaches to authenticating human users can look different from those authenticating machines (devices or applications).
 
 ## Factors in Authentication
 Factors in authentication are means to provide authentication to a system. They are broadly categorized as follows -
