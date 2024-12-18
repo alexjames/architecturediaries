@@ -78,10 +78,10 @@ After verifying credentials, the server creates a cryptographically signed token
 
 Unlike sessions, tokens contain sufficient information to authenticate a user and eliminate the need for the server to store the user’s authentication information. This allows a token to be passed to a different web server (or web application) without needing re-authentication. The tokens can store information about the user and session. They usually contain an expiry time and a web server will not accept any token that has passed this time.
 
-JWT (JSON Web Token) are a popular format for cryptographic tokens.
+JWT (JSON Web Token) is a popular format for cryptographic tokens.
 
 ### Comparing Sessions and Tokens
-The network round-trip time to pull session information from a database for session-based auth is likely more expensive than the time it takes for HMAC signature verification used in token-based auth. With the latter, token generation can be decoupled from token verification, allowing the use a separate servers for each. With the use of `sessionID`s, this isn’t as easy to do.
+The network round-trip time to pull session information from a database for session-based auth is likely more expensive than the time it takes for HMAC signature verification used in token-based auth. With the latter, token generation can be decoupled from token verification, allowing the use of separate servers for each. With the use of `sessionID`s, this isn’t as easy to do.
 
 Session based auth is commonly done with cookies, making it more targeted towards web browsers. Applications outside the browser, mobile applications and IOT devices work better with tokens since they can more easily attach them to HTTP request headers and don’t have to implement cookie management. Some webapps may combine both session and token based authentication.
 
@@ -108,7 +108,7 @@ Base64 encoding is not a form of encryption and hence Basic Auth should only be 
 
 ### #2 API Key Auth
 
-Authorization is done using of a API Key known only to the client and server. The client performs a one-time registration with the server and receives a unique API key.
+Authorization is done using a unique key known only to the client and server. The client performs a one-time registration with the server and receives a unique API key.
 
 The key is attached to every request made to the server. The server will check its database to determine which client the key belongs to.
 
@@ -120,7 +120,7 @@ The key can be used in the request in the following ways -
 
  * POST request body
 
-This is in essense just a variation of HTTP Basic auth. Having the same drawbacks as basic auth, the recommendation is to use this over a secure channel.
+This is in essence just a variation of HTTP Basic auth. Having the same drawbacks as basic auth, the recommendation is to use this over a secure channel.
 
 ### #3 JWT Authentication
 
@@ -136,12 +136,12 @@ Claims specify what a subject is or isn't (authentication information). They don
 
 Tokens are commonly signed using HMAC with a server secret or using RSA keys.
 
-Being a standard token-based authentication method, JWT auth is stateless, light-weight and can be used across several web applications. They usually have short expiration times and are sent over a secure channel. 
+Being a classic token authentication method, JWT auth is stateless, light-weight and can be used across several web applications. They usually have short expiration times and are sent over a secure channel.
 
 ## Password Storage
 We discuss several ways for web applications to store passwords in their database.
 
-1. **[Terrible]** Store in database in plaintext. If the database is compromised, all customer accounts are compromised.
+1. **[Terrible]** Store in a database in plaintext. If the database is compromised, all customer accounts are compromised.
 
 2. **[Less Bad]** Encrypt passwords with a key and store the encrypted passwords separately from the key. Attackers will now need to compromise the database as well as the key.
 
@@ -158,7 +158,7 @@ We discuss several ways for web applications to store passwords in their databas
 
    ```Hash = H(Password + Salt)```
 
-   It is okay to store salts with their corresponding hashes in the database, because the primary purpose of a salt is to render rainbow tables ineffective. Even if a hacker gain access to hashes and their corresponding salts, they are forced to brute force all combinations with that salt. For a sufficiently long and random password string, this should take an unfeasibly large amount of time.
+   It is okay to store salts with their corresponding hashes in the database, because the primary purpose of a salt is to render rainbow tables ineffective. Even if a hacker gains access to hashes and their corresponding salts, they are forced to brute force all combinations with that salt. For a sufficiently long and random password string, this should take an unfeasibly large amount of time.
 
    You can even add a random “pepper” along with the salt, which is a constant stored in source code. This way the hacker would need to compromise the database as well as the source code to attempt cracking passwords.
 
