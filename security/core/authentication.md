@@ -4,7 +4,7 @@ title: Authentication
 categories: security
 ---
 ## Definition
-**Authentication** is the process by which a user or application identifies itself to another application or system. **Authorization** is the validation that they are allowed to perform an action on a resource within the system.
+**Authentication** *(authn)* is the process by which a user or application identifies itself to another application or system. **Authorization** *(authz)* is the validation that they are allowed to perform an action on a resource within the system.
  
 Passwords, cryptographic tokens, and biometrics are some of the common ways of authentication. Approaches to authenticating human users can look different from those authenticating machines (devices or applications).
 
@@ -22,8 +22,8 @@ Factors in authentication are means to prove your identity to a system. They are
 
   Something you have i.e. “here is something only you could possess, so it must be you”
   * Mobile phone (automated phone call, SMS, authentication apps)
-  * Smart card
-  * Hardware Tokens
+  * Smart card (e.g. access card)
+  * Hardware Tokens (e.g. YubiKey)
   * Magic Link (URL with embedded tokens)
 
 - Inherence Based
@@ -40,7 +40,6 @@ Factors in authentication are means to prove your identity to a system. They are
   Something you do i.e. “this is something you do that is unique to you”
   * Voice recognition
   * Handwriting/signature recognition
-  * Typing patterns/speed
 
 - Location Based
   
@@ -48,16 +47,16 @@ Factors in authentication are means to prove your identity to a system. They are
   * Geolocation
   * IP based
 
-> Multi-factor Authentication: Using more than one factor for authentication, usually 2FA or 3FA
+> **Multi-factor Authentication**: Using more than one factor for authentication, usually 2FA or 3FA
 > 
-> 2FA (Two factor authentication): Using two factors for authentication
+> **2FA** (Two factor authentication): Using two factors for authentication
 > 
-> 3FA (Three factor authentication): Using three factors for authentication
+> **3FA** (Three factor authentication): Using three factors for authentication
 >
-> Passwordless: Using factor(s) other than "something you know"
+> **Passwordless**: Using factor(s) other than "something you know"
 
 ## Authentication Methods For The Web
-There are two common designs for web-based authentication systems - they can be session-based or token-based. Each defines a way to connect and establish an authenticated connection with the web server. Since HTTP is a stateless protocol, servers need a way to avoid having a user prove their identity everytime they make a request.
+There are two common designs for web-based authentication systems - they can be session-based or token-based. Each defines a way to connect and establish an authenticated connection with the web server. Since HTTP is a stateless protocol, servers need a way to avoid having a user prove their identity every time they make a request.
 
 ### Session-based Authentication
 
@@ -81,9 +80,9 @@ Unlike sessions, tokens contain sufficient information to authenticate a user an
 JWT (JSON Web Token) is a popular format for cryptographic tokens.
 
 ### Comparing Sessions and Tokens
-The network round-trip time to pull session information from a database for session-based auth is likely more expensive than the time it takes for HMAC signature verification used in token-based auth. With the latter, token generation can be decoupled from token verification, allowing the use of separate servers for each. With the use of `sessionID`s, this isn’t as easy to do.
+The network round-trip time to pull session information from a database for session-based auth is likely more expensive than the time it takes for HMAC signature verification used in token-based auth. With the latter, token generation can be decoupled from token verification, allowing the use of separate servers for each. With the use of `sessionID`s, this type of decoupling is harder to implement because the application server will need to know about session data being created by the authentication server.
 
-Session based auth is commonly done with cookies, making it more targeted towards web browsers. Applications outside the browser, mobile applications and IOT devices work better with tokens since they can more easily attach them to HTTP request headers and don’t have to implement cookie management. Some webapps may combine both session and token based authentication.
+Session based auth is commonly done with cookies, making it more targeted towards web browsers. Applications outside the browser, mobile applications and IoT devices work better with tokens since they can more easily attach them to HTTP request headers and don’t have to implement cookie management. Some webapps may combine both session and token based authentication.
 
 Ultimately, both session and token based auth rely on the client presenting some bytes of data to the web server that prove its identity. Both schemes are equally susceptible to compromise when conducted over unencrypted channels.
 
@@ -98,11 +97,13 @@ HTTP Basic auth is widely supported by web browsers and server frameworks.
 
 2. The client sees the `WWW-Authenticate` header and value **"Basic”**, indicating the auth scheme.
 
-3. When the client is a browser, it prompts its user to enter a username and password. The additional “realm” parameter defines a “protection space” i.e. as long as resources hosted on a server are in the same realm, the browser can cache and re-use the same credentials provided by a user, obviating the need to prompt them every time.
+3. When the client is a browser, it prompts its user to enter a username and password. The additional “realm” parameter defines a “protection space” i.e. as long as resources hosted on a server are in the same realm, the browser can cache and re-use the same credentials provided by the user. This way the browser won't have to keep prompting the user.
 
 4. The client takes the username and password and Base64 encodes it. It then makes the same request with the `Authorization` header and the encoded credentials.
 
 5. The server checks its database to verify the username and password match. It sends back a `200` response if they match. Otherwise it repeats the `401`.
+
+6. The client continues to send the `Authorization` header with every request until the session is complete or credentials are invalidated.
 
 Base64 encoding is not a form of encryption and hence Basic Auth should only be used over a secure channel such as HTTPS/TLS.
 
@@ -160,6 +161,6 @@ We discuss several ways for web applications to store passwords in their databas
 
    It is okay to store salts with their corresponding hashes in the database, because the primary purpose of a salt is to render rainbow tables ineffective. Even if a hacker gains access to hashes and their corresponding salts, they are forced to brute force all combinations with that salt. For a sufficiently long and random password string, this should take an unfeasibly large amount of time.
 
-   You can even add a random “pepper” along with the salt, which is a constant stored in source code. This way the hacker would need to compromise the database as well as the source code to attempt cracking passwords.
+   You can even add a random “pepper” along with the salt, which is a constant stored separately from the salt (e.g. application config file, password vault, etc). This way the hacker would need to compromise the database as well as the web application before attempting to crack passwords.
 
    ```Hash = H(Password + Salt + Pepper)```
