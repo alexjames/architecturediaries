@@ -20,5 +20,13 @@ title: Home
       {% endif %}
     {% endfor %}
   </ul>
-
+  <h1>Core Engineering (WIP)</h1>
+  <ul class="pages">
+    {% for page in site.pages %}
+      {% if page.categories == "core-eng" %}
+      {{ title }}
+        <li><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
   </div>
